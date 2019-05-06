@@ -15,6 +15,9 @@ const server = new ApolloServer({
   resolvers,
   context: {
     models,
+    category: {
+      id: 2,
+    },
   },
 });
 
