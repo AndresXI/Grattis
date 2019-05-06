@@ -13,6 +13,9 @@ const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers'))
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: {
+    models,
+  },
 });
 
 
