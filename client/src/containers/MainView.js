@@ -19,12 +19,11 @@ const MainView = () => (
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       console.log('data is ', data);
+      // eslint-disable-next-line max-len
       return (
         <div>
           <h1>
-            Main View
-            {' '}
-            {data.getAllProvidedServices[0].title}
+            Main View {data.getAllProvidedServices[0].title}
           </h1>
         </div>
       );
