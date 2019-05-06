@@ -19,7 +19,6 @@ const MainView = () => (
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       console.log('data is ', data);
-      // eslint-disable-next-line max-len
       return (
         <div>
           <h1>

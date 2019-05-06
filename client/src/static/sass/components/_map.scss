@@ -1,12 +1,8 @@
-#map {
-  // width: 70vw;
-  // height: 100vh;
-  // padding-left: 30rem;
-
-}
-
 .map-container {
   grid-template-columns: 2 / -1;
   height: 100vh;
-  background-color: rgb(162, 226, 189);
+
+  #map {
+    height: 100vh;
+  }
 }
