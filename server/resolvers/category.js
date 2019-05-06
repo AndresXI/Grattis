@@ -4,6 +4,14 @@ export default {
     getAllCategories: (parent, args, { models }) => models.Category.findAll(),
   },
   Mutation: {
-    createCategory: (parent, args, { models }) => models.Category.create(args),
+    createCategory: async (parent, args, { models }) => {
+      try {
+        await models.Category.create(args);
+        return true;
+      } catch (err) {
+        console.log(err);
+        return false;
+      }
+    },
   },
 };
