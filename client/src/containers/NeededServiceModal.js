@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Modal, Button, Form } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
-// import addressValidator from 'address-validator';
 
-// const {Address} = addressValidator;
-const SERVICE_PROVIDED_MUTATION = gql`
-  mutation createProvidedService(
+const SERVICE_NEEDED_MUTATION = gql`
+  mutation createNeededService(
     $title: String!, 
     $description: String!
     $address: String!
     $photoUrl: String!
     $username: String!
     ) {
-   createProvidedService(
+    createNeededService(
       title: $title, 
       description: $description,
       address: $address,
@@ -24,7 +22,7 @@ const SERVICE_PROVIDED_MUTATION = gql`
 `;
 
 
-export default class ProvidedServiceModal extends Component {
+export default class NeededServiceModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,14 +43,8 @@ export default class ProvidedServiceModal extends Component {
     });
   }
 
-  getAddressCoords = async (address) => {
-    const result = await fetch(`https://api.tomtom.com/search/2/geocode/${address}.json?limit=1&countrySet=US&lat=37.337&lon=-121.89&topLeft=37.553%2C-122.453&btmRight=37.4%2C-122.55&key=01ZXmKWLDr1TSBvi86xEvfIBv8DkMSX7`);
-    const data = await result.json();
-    return data.summary.geoBias;
-  }
-
   /** Handle submitting a form by creating a mutation */
-  handleSubmit = async (createProvidedService) => {
+  handleSubmit = async (createNeededService) => {
     const {
       title,
       description,
@@ -61,16 +53,7 @@ export default class ProvidedServiceModal extends Component {
       username,
     } = this.state;
 
-    const addressRegex = /^\s*\S+(?:\s+\S+){2}/;
-    if (addressRegex.test(address)) {
-      const coords = await this.getAddressCoords(address);
-      console.log('cords are', coords);
-    } else {
-      alert('bad adress');
-      return;
-    }
-
-    const response = await createProvidedService({
+    const response = await createNeededService({
       variables: {
         title,
         description,
@@ -79,14 +62,13 @@ export default class ProvidedServiceModal extends Component {
         username,
       },
     });
-    // re-fetch data to set marker on map
-    this.props.refetch();
+    console.log('response is', response);
   }
 
   render() {
     return (
-      <Mutation mutation={SERVICE_PROVIDED_MUTATION}>
-        {createProvidedService => (
+      <Mutation mutation={SERVICE_NEEDED_MUTATION}>
+        {createNeededService => (
           <Modal open={this.props.open} onClose={this.close}>
             <Modal.Header>Submit a service</Modal.Header>
             <Modal.Content>
@@ -138,7 +120,7 @@ export default class ProvidedServiceModal extends Component {
                 </Form.Field>
                 <Button
                   type="submit"
-                  onClick={() => { this.handleSubmit(createProvidedService); this.props.onClose(); }}
+                  onClick={() => { this.props.onClose(); this.handleSubmit(createNeededService); }}
                 >Submit
                 </Button>
                 <Button onClick={this.props.onClose}>Cancel</Button>

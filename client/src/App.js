@@ -1,32 +1,31 @@
 import React from 'react';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
+
 import Map from './containers/Map';
 import SideMenu from './containers/SideMenu';
 
-class App extends React.Component {
-  componentDidMount() {
-    // const script = document.createElement('script');
-    // script.src = `${process.env.PUBLIC_URL}/sdk/tomtom.min.js`;
-    // document.body.appendChild(script);
-    // script.async = true;
-    // script.onload = function () {
-    //   window.tomtom.L.map('map', {
-    //     source: 'vector',
-    //     key: '01ZXmKWLDr1TSBvi86xEvfIBv8DkMSX7',
-    //     center: [37.769167, -122.478468],
-    //     basePath: '/sdk',
-    //     zoom: 15,
-    //   });
-    // };
-  }
-
-  render() {
-    return (
-
-      <div className="app-layout">
-        <SideMenu />
-        <Map />
-      </div>
-    );
+const allServicesProvidedQuery = gql`
+{
+  getAllProvidedServices {
+    title
+    description
+    username
+    address
   }
 }
+`;
+
+const App = () => (
+  <Query query={allServicesProvidedQuery}>
+    {({
+      loading, error, data, refetch,
+    }) => (
+      <div className="app-layout">
+          <SideMenu refetch={refetch} />
+          <Map data={data} />
+        </div>
+    )}
+  </Query>
+);
 export default App;
