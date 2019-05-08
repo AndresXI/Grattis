@@ -37,7 +37,7 @@ export default class Map extends Component {
   }
 
   shouldComponentUpdate(prevProps) {
-    if (prevProps.data.getAllProvidedServices) {
+    if (prevProps.data) {
       prevProps.data.getAllProvidedServices.forEach((service) => {
         const coords = JSON.parse(service.addressCoords);
         const popUpText = `
