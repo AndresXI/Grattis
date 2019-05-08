@@ -18,17 +18,19 @@ export default class MenuContainer extends Component {
   render() {
     return (
       <div className="menu-container">
-        <h1 className="title">Grattis</h1>
-        <p className="app-description">Welcome to Grattis! Grattis is an effort to help those in need by
-          providing free services. Simply create a new service your are willing to offer free of charge. A
-          maker should show up on the map with the information you provided. Map markers appear live in real-time!
-        </p>
-        <Button color="teal" onClick={() => this.handleProvidedServiceClick()}>Provide a service</Button>
-        <ProvidedServiceModalMobile
-          refetch={this.props.refetch}
-          onClose={this.handleProvidedServiceClick}
-          open={this.state.serviceProvidedModal}
-        />
+        <div className="menu-contents">
+          <h1 className="title-mobile">Grattis</h1>
+          <p className="app-description-mobile">Welcome to Grattis! Grattis is an effort to help those in need by
+            providing free services. Simply create a new service your are willing to offer free of charge. A
+            maker should show up on the map with the information you provided. Map markers appear live in real-time!
+          </p>
+          <Button color="teal" onClick={() => this.handleProvidedServiceClick()}>Provide a service</Button>
+          <ProvidedServiceModalMobile
+            refetch={this.props.refetch}
+            onClose={this.handleProvidedServiceClick}
+            open={this.state.serviceProvidedModal}
+          />
+        </div>
       </div>
     );
   }

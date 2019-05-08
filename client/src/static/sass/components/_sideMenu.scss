@@ -21,7 +21,7 @@
   margin-left: 1rem;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 630px) {
   .side-menu {
     display: none;
   }
@@ -111,6 +111,18 @@
 .menu-container {
   position: absolute;
   background-color: rgb(243, 243, 243);
-  z-index: 1000;
+  z-index: 1090;
   height: 100vh;
+  text-align: center;
+}
+
+.menu-contents {
+  padding-top: 10rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.dimmed.dimmable>.ui.visible.dimmer,
+.ui.active.dimmer {
+  z-index: 100000;
 }
