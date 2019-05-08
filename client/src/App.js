@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 
@@ -16,16 +16,26 @@ const allServicesProvidedQuery = gql`
 }
 `;
 
-const App = () => (
-  <Query query={allServicesProvidedQuery}>
-    {({
-      loading, error, data, refetch,
-    }) => (
-      <div className="app-layout">
-          <SideMenu refetch={refetch} />
-          <Map data={data} />
-        </div>
-    )}
-  </Query>
-);
+class App extends Component {
+  componentWillMount() {
+    console.log('hi');
+  }
+
+  render() {
+    return (
+      <Query query={allServicesProvidedQuery}>
+        {({
+          loading, error, data, refetch, subscribeToMore,
+        }) => (
+          <div className="app-layout">
+              <SideMenu refetch={refetch} />
+              <Map subscribeToMore={subscribeToMore} data={data} />
+            </div>
+        )}
+      </Query>
+    );
+  }
+}
+
+
 export default App;

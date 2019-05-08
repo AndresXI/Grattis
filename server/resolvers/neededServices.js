@@ -5,9 +5,9 @@ export default {
   },
 
   Mutation: {
-    createNeededService: async (parent, args, { models, category }) => {
+    createNeededService: async (parent, args, { models }) => {
       try {
-        await models.NeededServices.create({ ...args, category_id: category.id });
+        await models.NeededServices.create({ ...args });
         return true;
       } catch (err) {
         console.log(err);

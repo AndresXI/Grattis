@@ -9,6 +9,10 @@ export default `
     username: String!
   }
 
+  type Subscription {
+    newServiceProvided: ProvidedServices!
+  }
+
   type Mutation {
     createProvidedService(
       title: String!, 

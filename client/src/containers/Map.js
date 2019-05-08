@@ -1,21 +1,63 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
 
 let map;
-const allServicesProvidedQuery = gql`
-{
-  getAllProvidedServices {
-    title
-    description
-    username
-    address
+const newServiceProvidedSubscription = gql`
+  subscription {
+    newServiceProvided {
+      title
+      description
+      address
+      photoUrl
+      username
+    }
   }
-}
 `;
+
 export default class Map extends Component {
   componentDidMount() {
+    this.props.subscribeToMore({
+      document: newServiceProvidedSubscription,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData) {
+          return prev;
+        }
+        console.log('data', prev);
+        return {
+          ...prev,
+          getAllProvidedServices: [...prev.getAllProvidedServices, subscriptionData.data.newServiceProvided],
+        };
+      },
+    });
+
+
     this.setMapWitCurrentLocation();
+    this.renderInitialMarkers();
+  }
+
+  shouldComponentUpdate(prevProps) {
+    prevProps.data.getAllProvidedServices.forEach((service) => {
+      // console.log('PRE', service);
+      // set coords to JSON object
+      const coords = JSON.parse(service.address);
+      if (window.tomtom) {
+        window.tomtom.L.marker([coords.lat, coords.lon]).addTo(map);
+      }
+    });
+    return true;
+  }
+
+  /** Render markers from database on componentDidMount */
+  renderInitialMarkers = () => {
+    if (this.props.data.getAllProvidedServices) {
+      console.log('data', this.props);
+      this.props.data.getAllProvidedServices.forEach((service) => {
+        // set coords to JSON object
+        const coords = JSON.parse(service.address);
+
+        window.tomtom.L.marker([coords.lat, coords.lon]).addTo(map);
+      });
+    }
   }
 
   /** Initializes the TomTom map with current location */
@@ -27,7 +69,8 @@ export default class Map extends Component {
       script.src = `${process.env.PUBLIC_URL}/sdk/tomtom.min.js`;
       document.body.appendChild(script);
       script.async = true;
-      script.onload = function () {
+
+      script.onload = () => {
         map = window.tomtom.L.map('map', {
           source: 'vector',
           key: '01ZXmKWLDr1TSBvi86xEvfIBv8DkMSX7',
@@ -39,29 +82,11 @@ export default class Map extends Component {
     });
   }
 
-
   render() {
-    if (this.props.data.getAllProvidedServices) {
-      this.props.data.getAllProvidedServices.forEach((service) => {
-        // fetch coordinates for each address
-        fetch(`https://api.tomtom.com/search/2/geocode/${service.address}.json?limit=1&countrySet=US&lat=37.337&lon=-121.89&topLeft=37.553%2C-122.453&btmRight=37.4%2C-122.55&key=01ZXmKWLDr1TSBvi86xEvfIBv8DkMSX7`)
-          .then(res => {
-            return res.json();
-          })
-          .then(data => {
-            if (window.tomtom.L) {
-              // set markers for each address
-              window.tomtom.L.marker([data.results[0].position.lat, data.results[0].position.lon]).addTo(map);
-            }
-          })
-      });
-    }
-
     return (
       <div className="map-container">
         <div id="map" />
       </div>
     );
-
   }
 }

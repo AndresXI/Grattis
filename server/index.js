@@ -2,6 +2,8 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import bodyParser from 'body-parser';
 import path from 'path';
+import http from 'http';
+import cors from 'cors';
 import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 
 import models from './models';
@@ -13,21 +15,29 @@ const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers'))
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  subscriptions: {
+    onConnect: (connectionParams, webSocket, context) => {
+      console.log('connected client');
+    },
+  },
   context: {
     models,
-    category: {
-      id: 2,
-    },
   },
 });
 
 
 const app = express();
+app.use(cors('*'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 server.applyMiddleware({ app });
 
-models.sequelize.sync().then(() => {
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
-  app.listen(4000);
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+models.sequelize.sync({ force: true }).then(() => {
+  httpServer.listen(4000, () => {
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+    console.log(`🚀 Subscriptions ready at ws://localhost:4000${server.subscriptionsPath}`);
+  });
 });

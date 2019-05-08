@@ -48,12 +48,12 @@ export default class ProvidedServiceModal extends Component {
   getAddressCoords = async (address) => {
     const result = await fetch(`https://api.tomtom.com/search/2/geocode/${address}.json?limit=1&countrySet=US&lat=37.337&lon=-121.89&topLeft=37.553%2C-122.453&btmRight=37.4%2C-122.55&key=01ZXmKWLDr1TSBvi86xEvfIBv8DkMSX7`);
     const data = await result.json();
-    return data.summary.geoBias;
+    return data.results[0].position;
   }
 
   /** Handle submitting a form by creating a mutation */
   handleSubmit = async (createProvidedService) => {
-    const {
+    let {
       title,
       description,
       address,
@@ -64,7 +64,7 @@ export default class ProvidedServiceModal extends Component {
     const addressRegex = /^\s*\S+(?:\s+\S+){2}/;
     if (addressRegex.test(address)) {
       const coords = await this.getAddressCoords(address);
-      console.log('cords are', coords);
+      address = JSON.stringify(coords);
     } else {
       alert('bad adress');
       return;
@@ -79,7 +79,7 @@ export default class ProvidedServiceModal extends Component {
         username,
       },
     });
-    // re-fetch data to set marker on map
+    // // re-fetch data to set marker on map
     this.props.refetch();
   }
 
