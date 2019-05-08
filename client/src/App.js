@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 
+import MenuToggle from './components/MenuToggle';
 import Map from './containers/Map';
 import SideMenu from './containers/SideMenu';
 
@@ -27,6 +28,7 @@ class App extends Component {
         }) => (
           <div className="app-layout">
               <SideMenu refetch={refetch} />
+              <MenuToggle />
               <Map subscribeToMore={subscribeToMore} data={data} />
             </div>
         )}

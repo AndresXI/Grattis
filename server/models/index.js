@@ -8,7 +8,6 @@ const sequelize = new Sequelize(process.env.DB, process.env.USERNAME, process.en
 // tables
 const models = {
   ProvidedServices: sequelize.import('./ProvidedServices'),
-  NeededServices: sequelize.import('./NeededServices'),
   Category: sequelize.import('./category'),
 };
 

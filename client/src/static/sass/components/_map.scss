@@ -1,8 +1,23 @@
 .map-container {
   grid-template-columns: 2 / -1;
   height: 100vh;
+  margin-left: .5rem;
 
   #map {
     height: 100vh;
   }
+}
+
+@media only screen and (max-width: 600px) {
+  .map-container {
+    grid-template-columns: 1 / -1;
+    height: 100vh;
+  }
+}
+
+.leaflet-popup-content>p {
+  padding-top: 0;
+  margin-top: 0;
+  padding-bottom: .7rem;
+  margin-bottom: 0;
 }

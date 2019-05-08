@@ -147,6 +147,25 @@ html {
 .app-layout {
   display: grid;
   height: 100vh;
-  grid-template-columns: 30rem 1fr;
+  grid-template-columns: 25rem 1fr;
   grid-template-rows: 1fr;
+
+}
+
+@media only screen and (max-width: 920px) {
+  .app-layout {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 20rem 1fr;
+    grid-template-rows: 1fr;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .app-layout {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
 }

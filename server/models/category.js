@@ -10,11 +10,6 @@ export default (sequelize, DataTypes) => {
     Category.hasMany(models.ProvidedServices, {
       foreignKey: 'category_id',
     });
-
-    // 1 to many with Needed Services
-    Category.hasMany(models.NeededServices, {
-      foreignKey: 'category_id',
-    });
   };
 
   return Category;

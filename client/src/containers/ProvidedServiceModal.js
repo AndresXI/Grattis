@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Modal, Button, Form } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
-// import addressValidator from 'address-validator';
 
-// const {Address} = addressValidator;
+
 const SERVICE_PROVIDED_MUTATION = gql`
   mutation createProvidedService(
     $title: String!, 
@@ -72,7 +71,7 @@ export default class ProvidedServiceModal extends Component {
       alert('bad adress');
       return;
     }
-    console.log('coords are', addressCoords);
+
     const response = await createProvidedService({
       variables: {
         title,
@@ -92,7 +91,7 @@ export default class ProvidedServiceModal extends Component {
       <Mutation mutation={SERVICE_PROVIDED_MUTATION}>
         {createProvidedService => (
           <Modal open={this.props.open} onClose={this.close}>
-            <Modal.Header>Submit a service</Modal.Header>
+            <Modal.Header>Submit a Free Service</Modal.Header>
             <Modal.Content>
               <Form>
                 <Form.Field>
@@ -123,12 +122,12 @@ export default class ProvidedServiceModal extends Component {
                   />
                 </Form.Field>
                 <Form.Field>
-                  <label>Address</label>
+                  <label>Address (street, city, state zip-code)</label>
                   <input
                     name="address"
                     value={this.state.address}
                     onChange={this.onInputChange}
-                    placeholder="Address"
+                    placeholder="Address, ex: 2240 Dominion St, Durham, NC 27704"
                   />
                 </Form.Field>
                 <Form.Field>

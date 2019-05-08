@@ -18,7 +18,6 @@ const MainView = () => (
   <Query query={allServicesProvidedQuery}>
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
-      console.log('data is ', data);
       return (
         <div>
           <h1>

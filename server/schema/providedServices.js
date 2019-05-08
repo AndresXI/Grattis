@@ -6,8 +6,8 @@ export default `
     address: String!
     addressCoords: String!
     photoUrl: String!
-    date: String!
     username: String!
+    createdAt: String!
   }
 
   type Subscription {
