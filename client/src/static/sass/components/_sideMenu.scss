@@ -16,7 +16,6 @@
 }
 
 .ui.teal.button {
-  // margin-left: 6rem;
   text-align: center;
   margin-top: 4rem;
   margin-left: 1rem;
@@ -36,7 +35,7 @@
 
 /* Icon 1 */
 #nav-icon1 {
-  z-index: 1344;
+  z-index: 10000;
   position: absolute;
   bottom: 3rem;
   margin-left: 2rem;
@@ -103,4 +102,15 @@
   -moz-transform: rotate(-135deg);
   -o-transform: rotate(-135deg);
   transform: rotate(-135deg);
+}
+
+.menu-container {
+  display: none;
+}
+
+.menu-container {
+  position: absolute;
+  background-color: rgb(243, 243, 243);
+  z-index: 1000;
+  height: 100vh;
 }

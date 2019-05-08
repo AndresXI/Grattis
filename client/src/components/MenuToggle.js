@@ -4,7 +4,7 @@ export default function MenuToggle() {
   let isToggle = false;
   const toggleMenuClass = (e) => {
     const nav = document.getElementById('nav-icon1');
-    const sideMenu = document.getElementsByClassName('side-menu')[0];
+    const sideMenu = document.getElementsByClassName('menu-container')[0];
 
     isToggle = !isToggle;
     if (isToggle) {

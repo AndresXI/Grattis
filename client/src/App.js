@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import MenuToggle from './components/MenuToggle';
 import Map from './containers/Map';
 import SideMenu from './containers/SideMenu';
+import MenuContainer from './components/MenuContainer';
 
 const allServicesProvidedQuery = gql`
 {
@@ -28,6 +29,7 @@ class App extends Component {
         }) => (
           <div className="app-layout">
               <SideMenu refetch={refetch} />
+              <MenuContainer refetch={refetch} />
               <MenuToggle />
               <Map subscribeToMore={subscribeToMore} data={data} />
             </div>

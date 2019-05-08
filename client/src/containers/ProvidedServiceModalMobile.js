@@ -25,7 +25,7 @@ const SERVICE_PROVIDED_MUTATION = gql`
 `;
 
 
-export default class ProvidedServiceModal extends Component {
+export default class ProvidedServiceModalMobile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,7 +91,7 @@ export default class ProvidedServiceModal extends Component {
       <Mutation mutation={SERVICE_PROVIDED_MUTATION}>
         {createProvidedService => (
           <Modal open={this.props.open}>
-            <Modal.Header>Submit a Free Service</Modal.Header>
+            <Modal.Header>Submit a Free Service Mobile</Modal.Header>
             <Modal.Content>
               <Form>
                 <Form.Field>
