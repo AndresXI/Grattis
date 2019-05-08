@@ -64,7 +64,14 @@ export default class Map extends Component {
           <p>${service.description}</p>
            <p>${service.address}</p>
         `;
-        const marker = window.tomtom.L.marker([coords.lat, coords.lon]).addTo(map);
+        const marker = window.tomtom.L.marker([coords.lat, coords.lon], {
+          icon: window.tomtom.L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/AndresXI/Grattis/master/client/public/sdk/images/marker-icon.png',
+            iconSize: [50, 50],
+            iconAnchor: [17, 70],
+            popupAnchor: [12, -80]
+          })
+        }).addTo(map);
         marker.bindPopup(popUpText);
       });
     }
