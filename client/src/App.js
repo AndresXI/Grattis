@@ -12,15 +12,13 @@ const allServicesProvidedQuery = gql`
     description
     username
     address
+    addressCoords
+    photoUrl
   }
 }
 `;
 
 class App extends Component {
-  componentWillMount() {
-    console.log('hi');
-  }
-
   render() {
     return (
       <Query query={allServicesProvidedQuery}>

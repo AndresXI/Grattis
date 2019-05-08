@@ -4,6 +4,7 @@ export default `
     title: String!
     description: String!
     address: String!
+    addressCoords: String!
     photoUrl: String!
     date: String!
     username: String!
@@ -18,13 +19,14 @@ export default `
       title: String!, 
       description: String!, 
       address: String!
+      addressCoords: String!
       photoUrl: String!,
       username: String!
       ): Boolean!
   }
 
   type Query {
-    getProvidedService(id: Int!): NeededServices!
-    getAllProvidedServices: [NeededServices!]!
+    getProvidedService(id: Int!): ProvidedServices!
+    getAllProvidedServices: [ProvidedServices!]!
   }
 `;

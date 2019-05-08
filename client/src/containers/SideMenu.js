@@ -30,10 +30,10 @@ export default class SideMenu extends Component {
           onClose={this.handleProvideServiceClick}
           open={this.state.serviceProvidedModal}
         />
-        <NeededServiceModal
+        {/* <NeededServiceModal
           onClose={this.handleNeededServiceClick}
           open={this.state.serviceNeededModal}
-        />
+        /> */}
       </div>
     );
   }

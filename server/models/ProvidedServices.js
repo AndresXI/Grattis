@@ -5,6 +5,7 @@ export default (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     description: DataTypes.STRING,
     address: DataTypes.STRING,
+    addressCoords: DataTypes.STRING,
     photoUrl: DataTypes.STRING,
     date: DataTypes.DATE,
   });

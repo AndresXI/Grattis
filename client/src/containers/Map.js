@@ -8,6 +8,7 @@ const newServiceProvidedSubscription = gql`
       title
       description
       address
+      addressCoords
       photoUrl
       username
     }
@@ -37,11 +38,15 @@ export default class Map extends Component {
 
   shouldComponentUpdate(prevProps) {
     prevProps.data.getAllProvidedServices.forEach((service) => {
-      // console.log('PRE', service);
-      // set coords to JSON object
-      const coords = JSON.parse(service.address);
+      const coords = JSON.parse(service.addressCoords);
+      const popUpText = `
+          <h3>${service.title}</h3>
+          <p>${service.description}</p>
+          <p>${service.address}</p>
+        `;
       if (window.tomtom) {
-        window.tomtom.L.marker([coords.lat, coords.lon]).addTo(map);
+        const marker = window.tomtom.L.marker([coords.lat, coords.lon]).addTo(map);
+        marker.bindPopup(popUpText).openPopup();
       }
     });
     return true;
@@ -50,12 +55,17 @@ export default class Map extends Component {
   /** Render markers from database on componentDidMount */
   renderInitialMarkers = () => {
     if (this.props.data.getAllProvidedServices) {
-      console.log('data', this.props);
       this.props.data.getAllProvidedServices.forEach((service) => {
         // set coords to JSON object
-        const coords = JSON.parse(service.address);
-
-        window.tomtom.L.marker([coords.lat, coords.lon]).addTo(map);
+        const coords = JSON.parse(service.addressCoords);
+        const popUpText = `
+          <h3>${service.title}</h3>
+          <p>by: ${service.username}</p>
+          <p>${service.description}</p>
+           <p>${service.address}</p>
+        `;
+        const marker = window.tomtom.L.marker([coords.lat, coords.lon]).addTo(map);
+        marker.bindPopup(popUpText);
       });
     }
   }
@@ -78,6 +88,7 @@ export default class Map extends Component {
           basePath: '/sdk',
           zoom: 14,
         });
+        this.renderInitialMarkers();
       };
     });
   }

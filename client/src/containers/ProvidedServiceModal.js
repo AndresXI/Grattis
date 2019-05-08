@@ -10,6 +10,7 @@ const SERVICE_PROVIDED_MUTATION = gql`
     $title: String!, 
     $description: String!
     $address: String!
+    $addressCoords: String!
     $photoUrl: String!
     $username: String!
     ) {
@@ -17,6 +18,7 @@ const SERVICE_PROVIDED_MUTATION = gql`
       title: $title, 
       description: $description,
       address: $address,
+      addressCoords: $addressCoords,
       photoUrl: $photoUrl,
       username: $username
       ) 
@@ -53,28 +55,30 @@ export default class ProvidedServiceModal extends Component {
 
   /** Handle submitting a form by creating a mutation */
   handleSubmit = async (createProvidedService) => {
-    let {
+    const {
       title,
       description,
       address,
       photoUrl,
       username,
     } = this.state;
+    let addressCoords;
 
     const addressRegex = /^\s*\S+(?:\s+\S+){2}/;
     if (addressRegex.test(address)) {
       const coords = await this.getAddressCoords(address);
-      address = JSON.stringify(coords);
+      addressCoords = JSON.stringify(coords);
     } else {
       alert('bad adress');
       return;
     }
-
+    console.log('coords are', addressCoords);
     const response = await createProvidedService({
       variables: {
         title,
         description,
         address,
+        addressCoords,
         photoUrl,
         username,
       },
