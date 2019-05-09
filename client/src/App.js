@@ -28,7 +28,7 @@ class App extends Component {
           loading, error, data, refetch, subscribeToMore,
         }) => (
           <div className="app-layout">
-              <SideMenu refetch={refetch} />
+              <SideMenu data={data} refetch={refetch} />
               <MenuContainer refetch={refetch} />
               <MenuToggle />
               <Map subscribeToMore={subscribeToMore} data={data} />
