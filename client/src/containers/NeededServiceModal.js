@@ -78,7 +78,7 @@ export default class ProvidedServiceModal extends Component {
       },
     });
     // // re-fetch data to set marker on map
-    // this.props.refetch();
+    this.props.refetchNeeded();
   }
 
   render() {
