@@ -29,7 +29,10 @@ class App extends Component {
         }) => (
           <div className="app-layout">
               <SideMenu data={data} refetch={refetch} />
-              <MenuContainer refetch={refetch} />
+              <MenuContainer
+                data={data}
+                refetch={refetch}
+              />
               <MenuToggle />
               <Map subscribeToMore={subscribeToMore} data={data} />
             </div>

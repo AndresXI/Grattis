@@ -32,6 +32,7 @@ export default class SideMenu extends Component {
           maker should show up on the map with the information you provided. Map markers appear live in real-time!
         </p>
         <Button color="teal" onClick={() => this.handleProvideServiceClick()}>Provide a service</Button>
+        <Button color="blue" onClick={() => this.handleProvideServiceClick()}>Ask for a service</Button>
         <Button color="teal" onClick={() => this.handleServiceListClick()}>Current Services</Button>
         <ServiceListModal
           data={this.props.data}
