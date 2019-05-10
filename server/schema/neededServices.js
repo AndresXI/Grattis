@@ -5,9 +5,7 @@ export default `
     description: String!
     address: String!
     addressCoords: String!
-    photoUrl: String!
     username: String!
-    createdAt: String!
   }
 
   type Subscription {
@@ -15,18 +13,17 @@ export default `
   }
 
   type Mutation {
-    createProvidedService(
+    createNeededService(
       title: String!, 
       description: String!, 
       address: String!
       addressCoords: String!
-      photoUrl: String!,
       username: String!
       ): Boolean!
   }
 
   type Query {
-    getProvidedService(id: Int!): NeededServices!
-    getAllProvidedServices: [NeededServices!]!
+    getNeededService(id: Int!): NeededServices!
+    getAllNeededServices: [NeededServices!]!
   }
 `;

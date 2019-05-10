@@ -23,7 +23,7 @@ export default class MenuContainer extends Component {
   }
 
   render() {
-    console.log('data is', this.props.data);
+    // console.log('data is', this.props.data);
     return (
       <div className="menu-container">
         <div className="menu-contents">

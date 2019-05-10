@@ -3,6 +3,7 @@ import { Button } from 'semantic-ui-react';
 
 import ProvidedServiceModal from './ProvidedServiceModal';
 import ServiceListModal from './ServiceListModal';
+import NeededServiceModal from './NeededServiceModal';
 
 
 export default class SideMenu extends Component {
@@ -11,6 +12,7 @@ export default class SideMenu extends Component {
     this.state = {
       serviceProvidedModal: false,
       serviceListModal: false,
+      serviceNeededModal: false,
     };
   }
 
@@ -20,6 +22,10 @@ export default class SideMenu extends Component {
 
   handleServiceListClick = () => {
     this.setState({ serviceListModal: !this.state.serviceListModal });
+  }
+
+  handleServiceNeededClick = () => {
+    this.setState({ serviceNeededModal: !this.state.serviceNeededModal });
   }
 
 
@@ -32,8 +38,12 @@ export default class SideMenu extends Component {
           maker should show up on the map with the information you provided. Map markers appear live in real-time!
         </p>
         <Button color="teal" onClick={() => this.handleProvideServiceClick()}>Provide a service</Button>
-        <Button color="blue" onClick={() => this.handleProvideServiceClick()}>Ask for a service</Button>
+        <Button color="blue" onClick={() => this.handleServiceNeededClick()}>Ask for a service</Button>
         <Button color="teal" onClick={() => this.handleServiceListClick()}>Current Services</Button>
+        <NeededServiceModal
+          onClose={this.handleServiceNeededClick}
+          open={this.state.serviceNeededModal}
+        />
         <ServiceListModal
           data={this.props.data}
           onClose={this.handleServiceListClick}

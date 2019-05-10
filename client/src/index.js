@@ -7,6 +7,8 @@ import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 
 import './static/sass/main.scss';
 import 'semantic-ui-css/semantic.min.css';
@@ -46,10 +48,28 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const allServicesNeededQuery = gql`
+{
+  getAllNeededServices {
+    title
+    description
+    username
+    address
+    addressCoords
+  }
+}
+`;
+
 
 const app = (
   <ApolloProvider client={client}>
-    <App />
+    <Query query={allServicesNeededQuery}>
+      {({ loading, data, refetch, subscribeToMore }) => (
+        <App
+          servicesNeeded={data}
+        />
+      )}
+    </Query>
   </ApolloProvider>
 );
 
