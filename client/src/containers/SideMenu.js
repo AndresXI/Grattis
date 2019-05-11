@@ -55,6 +55,24 @@ export default class SideMenu extends Component {
           onClose={this.handleProvideServiceClick}
           open={this.state.serviceProvidedModal}
         />
+        <div className="chat-box">
+          <div className="container">
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+            <p>Hello?</p>
+          </div>
+        </div>
       </div>
     );
   }
