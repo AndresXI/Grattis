@@ -6,3 +6,6 @@ node_modules
 
 # distribution folder
 dist
+
+# local data store
+pgdata
