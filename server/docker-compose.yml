@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    networks: 
+      - webnet
+    environment: 
+      POSTGRES_PASSWORD: barcelona10  
+      POSTGRES_USER: postgres  
+      POSTGRES_DB: grattis
+  web:
+    image: grattis-server
+    ports:
+      - "4001:4001"
+    networks:
+      - webnet
+    environment: 
+      DB_HOST: db
+    command: ["./wait-for-it.sh", "db:5432", "--", "node", "index.js"]  
+networks: 
+  webnet:

@@ -1,7 +1,8 @@
 import Sequelize from 'sequelize';
 
 // connect to postgres
-const sequelize = new Sequelize(process.env.DB, process.env.USERNAME, process.env.PASSWORD, {
+const sequelize = new Sequelize('grattis', 'postgres', 'barcelona10', {
+  host: process.env.DB_HOST || 'localhost',
   dialect: 'postgres',
 });
 
@@ -9,7 +10,7 @@ const sequelize = new Sequelize(process.env.DB, process.env.USERNAME, process.en
 const models = {
   ProvidedServices: sequelize.import('./ProvidedServices'),
   NeededServices: sequelize.import('./NeededServices'),
-  Category: sequelize.import('./category'),
+  Category: sequelize.import('./Category'),
 };
 
 // Set associations
