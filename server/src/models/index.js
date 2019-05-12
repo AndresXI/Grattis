@@ -6,18 +6,19 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 export default async () => {
   let maxReconnects = 20;
   let connected = false;
-  let sequelize;
+  const sequelize = new Sequelize('grattis', 'postgres', 'barcelona10', {
+    host: process.env.DB_HOST || 'localhost',
+    dialect: 'postgres',
+  });
   while (!connected && maxReconnects) {
     // connect to postgres
     try {
-      sequelize = new Sequelize('grattis', 'postgres', 'barcelona10', {
-        host: process.env.DB_HOST || 'localhost',
-        dialect: 'postgres',
-      });
+      // eslint-disable-next-line no-await-in-loop
+      await sequelize.authenticate();
       connected = true;
     } catch (err) {
       console.log('reconnecting in 5 seconds');
-      // eslit-disable-next-line no-await-in-loop
+      // eslint-disable-next-line no-await-in-loop
       await sleep(5000);
       maxReconnects -= 1;
     }
