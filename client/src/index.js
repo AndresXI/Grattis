@@ -16,12 +16,12 @@ import App from './App';
 
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4001/graphql',
+  uri: `http://${process.env.REACT_APP_SERVER_URL}/graphql`,
 });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4001/graphql`,
+  uri: `ws://${process.env.REACT_APP_SERVER_URL}/graphql`,
   options: {
     reconnect: true,
   },

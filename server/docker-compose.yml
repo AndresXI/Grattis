@@ -13,11 +13,12 @@ services:
     ports:
       - "3030:5432"  
   web:
-    image: grattis-server
+    image: andresxi/grattis-server:latest
     networks:
       - webnet
     environment: 
       DB_HOST: db
+      SERVER_URL: http://ec2-18-188-78-142.us-east-2.compute.amazonaws.com
     depends_on: 
      - db
     command: ["./wait-for-it.sh", "db:5432", "--", "node", "index.js"]  
@@ -26,7 +27,7 @@ services:
     volumes:
     - ./mysite.template:/etc/nginx/conf.d/mysite.template
     ports:
-    - "4001:80"
+    - "80:80"
     networks:
       - webnet
     depends_on: 
